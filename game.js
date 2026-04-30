@@ -2,51 +2,53 @@ herelet coins = 0;
 let miss = 0;
 let time = 180;
 
+function updateUI(){
 document.getElementById("coins").innerText = coins;
+document.getElementById("miss").innerText = miss;
+document.getElementById("time").innerText = time;
+}
 
-// spawn fish
 function spawnFish(){
-    let fish = document.createElement("div");
-    fish.className = "fish";
+let fish = document.createElement("div");
+fish.className = "fish";
 
-    fish.style.top = Math.random()*80 + "%";
-    fish.style.left = "100%";
+fish.style.top = Math.random()*80 + "%";
+fish.style.left = "100%";
 
-    fish.onclick = ()=>{
-        coins++;
-        document.getElementById("coins").innerText = coins;
-        fish.remove();
-    };
+fish.onclick = ()=>{
+coins++;
+updateUI();
+fish.remove();
+};
 
-    document.getElementById("gameArea").appendChild(fish);
+document.getElementById("gameArea").appendChild(fish);
 
-    let move = setInterval(()=>{
-        fish.style.left = (parseFloat(fish.style.left)-2)+"%";
+let move = setInterval(()=>{
+fish.style.left = (parseFloat(fish.style.left)-2)+"%";
 
-        if(parseFloat(fish.style.left) < -10){
-            fish.remove();
-            miss++;
-            document.getElementById("miss").innerText = miss;
+if(parseFloat(fish.style.left) < -10){
+fish.remove();
+miss++;
+updateUI();
 
-            if(miss >= 3){
-                alert("Game Over!");
-                location.href = "index.html";
-            }
+if(miss >= 3){
+alert("Game Over! Score: " + coins);
+location.href = "index.html";
+}
 
-            clearInterval(move);
-        }
-    },100);
+clearInterval(move);
+}
+},100);
 }
 
 setInterval(spawnFish, 1200);
 
-// timer
 setInterval(()=>{
-    time--;
-    document.getElementById("time").innerText = time;
+time--;
+updateUI();
 
-    if(time <= 0){
-        alert("Round Finished!");
-        location.href = "index.html";
-    }
+if(time <= 0){
+alert("Time Up! Score: " + coins);
+location.href = "index.html";
+}
 },1000);

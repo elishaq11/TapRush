@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Withdraw</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg">
+
+<div class="card">
+
+<h2>💸 Withdraw Coins</h2>
+
+<p>Minimum Withdraw: 5000 coins</p>
+
+<input type="number" placeholder="Enter amount" id="amount">
+
+<button onclick="withdraw()">Request Withdraw</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script src="app.js"></script>
+
+<script>
+function withdraw(){
+    let amt = document.getElementById("amount").value;
+
+    if(amt < 5000){
+        document.getElementById("msg").innerText = "❌ Minimum is 5000 coins";
+    } else {
+        document.getElementById("msg").innerText = "✅ Request Sent";
+    }
+}
+</script>
+
+</body>
+</html>

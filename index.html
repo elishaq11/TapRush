@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>TapRush Game</title>
+
+<style>
+body {
+    text-align: center;
+    background: black;
+    color: white;
+    font-family: Arial;
+}
+
+h1 {
+    color: gold;
+}
+
+button {
+    padding: 20px;
+    font-size: 22px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>TapRush 🎮</h1>
+
+<h2>Score: <span id="score">0</span></h2>
+
+<button onclick="tap()">TAP 💥</button>
+
+<script>
+let score = 0;
+
+function tap() {
+    score++;
+    document.getElementById("score").innerText = score;
+}
+</script>
+
+</body>
+</html>

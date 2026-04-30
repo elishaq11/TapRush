@@ -149,3 +149,125 @@ function startGame(){
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapRush App</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+/* screens */
+.screen{
+display:none;
+padding:20px;
+text-align:center;
+}
+
+.active{
+display:block;
+}
+
+/* bottom nav */
+.nav{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+background:#111;
+}
+
+.nav button{
+flex:1;
+padding:15px;
+border:none;
+background:#111;
+color:white;
+font-size:14px;
+}
+
+/* tap button */
+.tap{
+width:150px;
+height:150px;
+border-radius:50%;
+border:none;
+font-size:20px;
+background:linear-gradient(45deg,#ff416c,#ff4b2b);
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+<h1>🔥 TapRush</h1>
+<p>Coins: <span id="coins">0</span></p>
+</div>
+
+<!-- GAME -->
+<div id="game" class="screen">
+<h2>Score: <span id="score">0</span></h2>
+<h3>Time: <span id="time">30</span></h3>
+
+<button class="tap" onclick="tap()">TAP 💥</button>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="leaderboard" class="screen">
+<h2>🏆 Leaderboard</h2>
+<p>Your Score: <span id="best">0</span></p>
+</div>
+
+<!-- WITHDRAW -->
+<div id="withdraw" class="screen">
+<h2>💸 Withdraw</h2>
+<p>Minimum: 5000 coins</p>
+<input id="amount" placeholder="Enter amount">
+<button onclick="withdraw()">Send</button>
+<p id="msg"></p>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+<button onclick="show('home')">Home</button>
+<button onclick="show('game')">Play</button>
+<button onclick="show('leaderboard')">Rank</button>
+<button onclick="show('withdraw')">Cash</button>
+</div>
+
+<script>
+let score = 0;
+let time = 30;
+let coins = localStorage.getItem("coins") || 0;
+
+document.getElementById("coins").innerText = coins;
+document.getElementById("best").innerText = coins;
+
+// navigation
+function show(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+// tap game
+function tap(){
+score++;
+document.getElementById("score").innerText = score;
+}
+
+setInterval(()=>{
+if(document.getElementById("game").classList.contains("active")){
+time--;
+document.getElementById("time").innerText = time;
+
+if(time<=0){
+alert

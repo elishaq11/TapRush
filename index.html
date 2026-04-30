@@ -47,3 +47,167 @@ function tap() {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tap Rush Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    text-align:center;
+}
+
+.game{
+    width:90%;
+    max-width:400px;
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+.scoreboard{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+    font-size:18px;
+}
+
+button{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:none;
+    font-size:22px;
+    font-weight:bold;
+    color:white;
+    background: linear-gradient(45deg,#ff416c,#ff4b2b);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:active{
+    transform:scale(0.9);
+    box-shadow:0 5px 15px rgba(0,0,0,0.5);
+}
+
+.glow{
+    animation: glow 0.2s ease;
+}
+
+@keyframes glow{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+.start{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#00c6ff;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+    <h1>🔥 Tap Rush</h1>
+
+    <div class="scoreboard">
+        <div>Score: <span id="score">0</span></div>
+        <div>Time: <span id="time">30</span>s</div>
+    </div>
+
+    <button id="tapBtn">TAP 💥</button>
+
+    <br>
+    <button class="start" onclick="startGame()">Start Game</button>
+
+    <p>🏆 High Score: <span id="highScore">0</span></p>
+</div>
+
+<script>
+let score = 0;
+let time = 30;
+let gameRunning = false;
+let interval;
+
+// load high score
+let highScore = localStorage.getItem("highScore") || 0;
+document.getElementById("highScore").innerText = highScore;
+
+// sound
+function playSound(){
+    let ctx = new (window.AudioContext || window.webkitAudioContext)();
+    let osc = ctx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.value = 600;
+    osc.connect(ctx.destination);
+    osc.start();
+    setTimeout(()=>osc.stop(), 100);
+}
+
+// tap button
+document.getElementById("tapBtn").addEventListener("click", ()=>{
+    if(!gameRunning) return;
+
+    score++;
+    document.getElementById("score").innerText = score;
+
+    // animation
+    let btn = document.getElementById("tapBtn");
+    btn.classList.add("glow");
+    setTimeout(()=>btn.classList.remove("glow"),200);
+
+    playSound();
+});
+
+// start game
+function startGame(){
+    score = 0;
+    time = 30;
+    gameRunning = true;
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("time").innerText = time;
+
+    clearInterval(interval);
+
+    interval = setInterval(()=>{
+        time--;
+        document.getElementById("time").innerText = time;
+
+        if(time <= 0){
+            clearInterval(interval);
+            gameRunning = false;
+
+            alert("Game Over! Score: " + score);
+
+            if(score > highScore){
+                highScore = score;
+                localStorage.setItem("highScore", highScore);
+                document.getElementById("highScore").innerText = highScore;
+            }
+        }
+    },1000);
+}
+</script>
+
+</body>
+</html>

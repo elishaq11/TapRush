@@ -26,3 +26,94 @@ here<!DOCTYPE html>
 </div>
 
 <div id="gameArea"></div>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tap Shine Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+.card{
+text-align:center;
+padding:20px;
+}
+
+h1{
+font-size:30px;
+margin-bottom:20px;
+}
+
+.stats{
+font-size:22px;
+margin:10px 0;
+}
+
+button{
+width:160px;
+height:160px;
+border-radius:50%;
+border:none;
+font-size:22px;
+font-weight:bold;
+color:white;
+background: linear-gradient(45deg,#ff416c,#ff4b2b);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+cursor:pointer;
+transition:0.2s;
+}
+
+button:active{
+transform:scale(0.9);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>🔥 Tap Shine</h1>
+
+<div class="stats">Score: <span id="score">0</span></div>
+<div class="stats">Time: <span id="time">30</span>s</div>
+
+<button onclick="tap()">TAP 💥</button>
+
+</div>
+
+<script>
+let score = 0;
+let time = 30;
+
+// tap function
+function tap(){
+score++;
+document.getElementById("score").innerText = score;
+}
+
+// timer
+let game = setInterval(()=>{
+time--;
+document.getElementById("time").innerText = time;
+
+if(time <= 0){
+clearInterval(game);
+alert("Game Over! Score: " + score);
+location.reload();
+}
+},1000);
+</script>
+
+</body>
+</html>

@@ -271,3 +271,153 @@ document.getElementById("time").innerText = time;
 
 if(time<=0){
 alert
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapRush PRO</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+overflow:hidden;
+}
+
+/* splash */
+#splash{
+position:fixed;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:black;
+z-index:10;
+}
+
+/* screens */
+.screen{
+display:none;
+padding:20px;
+text-align:center;
+}
+
+.active{
+display:block;
+animation:fade 0.3s;
+}
+
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* nav */
+.nav{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+background:rgba(0,0,0,0.8);
+backdrop-filter: blur(10px);
+}
+
+.nav button{
+flex:1;
+padding:15px;
+border:none;
+background:none;
+color:white;
+}
+
+/* tap button */
+.tap{
+width:150px;
+height:150px;
+border-radius:50%;
+border:none;
+font-size:20px;
+background:linear-gradient(45deg,#ff416c,#ff4b2b);
+color:white;
+box-shadow:0 0 20px rgba(255,0,0,0.5);
+}
+
+/* glass card */
+.card{
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:15px;
+margin:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="splash"><h1>🔥 TapRush</h1></div>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+<h2>💰 Coins: <span id="coins">0</span></h2>
+
+<div class="card">
+<p>🎁 Daily Bonus</p>
+<button onclick="daily()">Claim +100</button>
+</div>
+</div>
+
+<!-- GAME -->
+<div id="game" class="screen">
+<h2>Score: <span id="score">0</span></h2>
+<h3>Time: <span id="time">30</span></h3>
+
+<button class="tap" onclick="tap()">TAP 💥</button>
+
+<p>🔥 Combo: <span id="combo">0</span></p>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="leaderboard" class="screen">
+<h2>🏆 Leaderboard</h2>
+<div class="card">Player1 - 5000</div>
+<div class="card">Player2 - 3000</div>
+<div class="card">You - <span id="best"></span></div>
+</div>
+
+<!-- WITHDRAW -->
+<div id="withdraw" class="screen">
+<h2>💸 Withdraw</h2>
+<p>Minimum 5000</p>
+<input id="amount" placeholder="Enter amount">
+<button onclick="withdraw()">Submit</button>
+<p id="msg"></p>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+<button onclick="show('home')">🏠</button>
+<button onclick="show('game')">🎮</button>
+<button onclick="show('leaderboard')">🏆</button>
+<button onclick="show('withdraw')">💰</button>
+</div>
+
+<script>
+let coins = parseInt(localStorage.getItem("coins")) || 0;
+let score = 0;
+let combo = 0;
+let time = 30;
+
+document.getElementById("coins").innerText = coins;
+document.getElementById("best").innerText = coins;
+
+// splash
+setTimeout(()=>{
+document.getElementById("splash").style.display="none";
+},1500);
+
+// navigation
+function show(id){
+document.querySelectorAll(".screen").forEach(s=>s

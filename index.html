@@ -1,4 +1,110 @@
-<button onclick="location.href='game.html'">🎮 Play Game</button>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fish Tap Game</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial;
+    background: linear-gradient(to bottom, #00c6ff, #0072ff);
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 10px;
+}
+
+#info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+}
+
+/* Fish */
+.fish {
+    position: absolute;
+    width: 60px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fish:active {
+    transform: scale(0.8);
+}
+</style>
+</head>
+
+<body>
+
+<h1>🐟 Fish Tap Game</h1>
+
+<div id="info">
+    <div>💰 Coins: <span id="score">0</span></div>
+    <div>⏱ Time: <span id="time">30</span>s</div>
+</div>
+
+<script>
+let score = 0;
+let time = 30;
+let misses = 0;
+
+/* Timer */
+let gameTimer = setInterval(() => {
+    time--;
+    document.getElementById("time").innerText = time;
+
+    if (time <= 0) {
+        endGame();
+    }
+}, 1000);
+
+/* Spawn fish */
+function spawnFish() {
+    let fish = document.createElement("img");
+    fish.src = "https://cdn-icons-png.flaticon.com/512/616/616408.png";
+    fish.className = "fish";
+
+    fish.style.top = Math.random() * (window.innerHeight - 100) + "px";
+    fish.style.left = Math.random() * (window.innerWidth - 100) + "px";
+
+    /* Tap fish */
+    fish.onclick = () => {
+        score++;
+        document.getElementById("score").innerText = score;
+        fish.remove();
+    };
+
+    document.body.appendChild(fish);
+
+    /* If not tapped */
+    setTimeout(() => {
+        if (document.body.contains(fish)) {
+            fish.remove();
+            misses++;
+            if (misses >= 3) {
+                endGame();
+            }
+        }
+    }, 1500);
+}
+
+/* Spawn every second */
+setInterval(spawnFish, 1000);
+
+/* End game */
+function endGame() {
+    clearInterval(gameTimer);
+    alert("Game Over! Coins: " + score);
+    location.reload();
+}
+</script>
+
+</body>
+</html><button onclick="location.href='game.html'">🎮 Play Game</button>
 <button onclick="location.href='leaderboard.html'">🏆 Leaderboard</button>
 <button onclick="location.href='withdraw.html'">💸 Withdraw</button>here<!DOCTYPE html>
 <html lang="en">
@@ -421,3 +527,92 @@ document.getElementById("splash").style.display="none";
 // navigation
 function show(id){
 document.querySelectorAll(".screen").forEach(s=>s
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapRush</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+}
+
+/* Top */
+h1 {
+    margin-top: 20px;
+}
+
+/* Game Area */
+.container {
+    margin-top: 40px;
+}
+
+#score {
+    font-size: 24px;
+    color: yellow;
+}
+
+#tapBtn {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: red;
+    border: none;
+    font-size: 22px;
+    color: white;
+    margin-top: 20px;
+}
+
+/* Bottom Menu */
+.menu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: black;
+    padding: 10px 0;
+}
+
+.menu button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🔥 TapRush</h1>
+
+<div class="container">
+    <p>Score: <span id="score">0</span></p>
+
+    <button id="tapBtn" onclick="tap()">TAP</button>
+</div>
+
+<div class="menu">
+    <button>🏠 Home</button>
+    <button>🎮 Play</button>
+    <button>🏆 Rank</button>
+    <button>💰 Cash</button>
+</div>
+
+<script>
+let score = 0;
+
+function tap() {
+    score++;
+    document.getElementById("score").innerText = score;
+}
+</script>
+
+</body>
+</html>
